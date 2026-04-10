@@ -240,8 +240,8 @@ img, canvas {
 
 .ds-dpad {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 68px;
+  height: 68px;
 }
 .ds-dpad-h, .ds-dpad-v {
   position: absolute;
@@ -249,16 +249,32 @@ img, canvas {
   border: 2px solid var(--device-shadow);
   border-radius: 2px;
 }
-.ds-dpad-h { width: 52px; height: 18px; top: 17px; left: 0; }
-.ds-dpad-v { width: 18px; height: 52px; top: 0; left: 17px; }
+.ds-dpad-h { width: 68px; height: 22px; top: 23px; left: 0; }
+.ds-dpad-v { width: 22px; height: 68px; top: 0; left: 23px; }
 .ds-dpad::after {
   content: '';
   position: absolute;
-  width: 18px; height: 18px;
-  top: 17px; left: 17px;
+  width: 22px; height: 22px;
+  top: 23px; left: 23px;
   background: #1a1530;
   border-radius: 50%;
 }
+
+/* Transparent clickable overlays — one per d-pad arm */
+.ds-dpad-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  transition: background 0.06s;
+}
+.ds-dpad-btn:active { background: rgba(255,255,255,0.14); }
+.ds-dpad-up    { top: 0;    left: 23px; width: 22px; height: 23px; }
+.ds-dpad-down  { top: 45px; left: 23px; width: 22px; height: 23px; }
+.ds-dpad-left  { top: 23px; left: 0;    width: 23px; height: 22px; }
+.ds-dpad-right { top: 23px; left: 45px; width: 23px; height: 22px; }
 
 .ds-center-btns {
   display: flex;
@@ -276,12 +292,12 @@ img, canvas {
 
 .ds-face-buttons {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 68px;
+  height: 68px;
 }
 .ds-face-btn {
   position: absolute;
-  width: 16px; height: 16px;
+  width: 22px; height: 22px;
   border-radius: 50%;
   border: 2px solid rgba(0,0,0,0.5);
   display: flex;
@@ -290,7 +306,10 @@ img, canvas {
   font-family: var(--font-pixel);
   font-size: 5px;
   color: rgba(255,255,255,0.3);
+  padding: 0;
 }
+button.ds-face-btn { cursor: pointer; transition: filter 0.06s; }
+button.ds-face-btn:active { filter: brightness(1.7); }
 .ds-face-btn-a { right: 0; top: 50%; transform: translateY(-50%); background: #7a1515; }
 .ds-face-btn-b { bottom: 0; left: 50%; transform: translateX(-50%); background: #6a5000; }
 .ds-face-btn-x { top: 0; left: 50%; transform: translateX(-50%); background: #15307a; }

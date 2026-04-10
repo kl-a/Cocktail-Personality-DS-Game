@@ -55,6 +55,11 @@ export function playSuccess() {
   notes.forEach((f, i) => tone(f, 0.14, 'square', 0.05, i * 0.09))
 }
 
+/** Subtle tick — d-pad / face button tap */
+export function playTap() {
+  tone(330, 0.04, 'square', 0.04)
+}
+
 /** Soft thud — power button toggle */
 export function playPower() {
   tone(180, 0.12, 'square', 0.04)

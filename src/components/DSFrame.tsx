@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { playPower } from '@/lib/sounds'
+import { playPower, playTap } from '@/lib/sounds'
 
 interface DSFrameProps {
   topScreen:      ReactNode
@@ -12,6 +12,11 @@ interface DSFrameProps {
 }
 
 type PowerAnim = 'off' | 'on' | null
+
+function fireKey(key: string) {
+  window.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }))
+  playTap()
+}
 
 export default function DSFrame({ topScreen, bottomScreen, onPowerChange, shake }: DSFrameProps) {
   const [on,        setOn]        = useState(true)
@@ -86,21 +91,25 @@ export default function DSFrame({ topScreen, bottomScreen, onPowerChange, shake 
           </div>
         </div>
 
-        {/* Decorative controls */}
-        <div className="ds-controls" aria-hidden="true">
+        {/* Controls — d-pad and A/B are wired for Konami code input */}
+        <div className="ds-controls">
           <div className="ds-dpad">
-            <div className="ds-dpad-h" />
-            <div className="ds-dpad-v" />
+            <div className="ds-dpad-h" aria-hidden="true" />
+            <div className="ds-dpad-v" aria-hidden="true" />
+            <button className="ds-dpad-btn ds-dpad-up"    onClick={() => fireKey('ArrowUp')}    aria-label="Up"    tabIndex={-1} />
+            <button className="ds-dpad-btn ds-dpad-down"  onClick={() => fireKey('ArrowDown')}  aria-label="Down"  tabIndex={-1} />
+            <button className="ds-dpad-btn ds-dpad-left"  onClick={() => fireKey('ArrowLeft')}  aria-label="Left"  tabIndex={-1} />
+            <button className="ds-dpad-btn ds-dpad-right" onClick={() => fireKey('ArrowRight')} aria-label="Right" tabIndex={-1} />
           </div>
-          <div className="ds-center-btns">
-            <div className="ds-menu-btn" title="SELECT" />
-            <div className="ds-menu-btn" title="START" />
+          <div className="ds-center-btns" aria-hidden="true">
+            <div className="ds-menu-btn" />
+            <div className="ds-menu-btn" />
           </div>
           <div className="ds-face-buttons">
-            <div className="ds-face-btn ds-face-btn-a">A</div>
-            <div className="ds-face-btn ds-face-btn-b">B</div>
-            <div className="ds-face-btn ds-face-btn-x">X</div>
-            <div className="ds-face-btn ds-face-btn-y">Y</div>
+            <button className="ds-face-btn ds-face-btn-a" onClick={() => fireKey('a')} aria-label="A" tabIndex={-1}>A</button>
+            <button className="ds-face-btn ds-face-btn-b" onClick={() => fireKey('b')} aria-label="B" tabIndex={-1}>B</button>
+            <div className="ds-face-btn ds-face-btn-x" aria-hidden="true">X</div>
+            <div className="ds-face-btn ds-face-btn-y" aria-hidden="true">Y</div>
           </div>
         </div>
 
