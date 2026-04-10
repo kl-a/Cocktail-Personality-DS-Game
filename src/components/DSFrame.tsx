@@ -4,13 +4,14 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 
 interface DSFrameProps {
-  topScreen:    ReactNode
-  bottomScreen: ReactNode
+  topScreen:      ReactNode
+  bottomScreen:   ReactNode
+  onPowerChange?: (on: boolean) => void
 }
 
 type PowerAnim = 'off' | 'on' | null
 
-export default function DSFrame({ topScreen, bottomScreen }: DSFrameProps) {
+export default function DSFrame({ topScreen, bottomScreen, onPowerChange }: DSFrameProps) {
   const [on,       setOn]       = useState(true)
   const [animating, setAnimating] = useState<PowerAnim>(null)
 
@@ -23,10 +24,12 @@ export default function DSFrame({ topScreen, bottomScreen }: DSFrameProps) {
       setTimeout(() => {
         setOn(false)
         setAnimating(null)
+        onPowerChange?.(false)
       }, 380)
     } else {
       // Turning on: show content immediately, play CRT-expand
       setOn(true)
+      onPowerChange?.(true)
       setAnimating('on')
       setTimeout(() => setAnimating(null), 380)
     }

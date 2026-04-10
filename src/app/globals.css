@@ -576,6 +576,65 @@ img, canvas {
   50%       { opacity: 0; }
 }
 
+/* ─── Result layout (DS + side panel) ───────────────────────────────────── */
+.result-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.flavor-panel {
+  width: 210px;
+  flex-shrink: 0;
+  background: var(--device-body);
+  border: 2px solid var(--mint-dim);
+  padding: 16px 14px;
+  box-shadow: 3px 3px 0 var(--device-shadow), 0 0 24px rgba(125,207,182,0.05);
+  animation: panel-appear 0.22s ease-out;
+}
+
+@keyframes panel-appear {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.flavor-panel-title {
+  font-family: var(--font-pixel);
+  font-size: 6px;
+  color: var(--mint);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--mint-dim);
+}
+
+.flavor-panel-cocktail {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--yellow);
+  text-transform: uppercase;
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+/* On screens too narrow for the side panel, stack it below the DS */
+@media (max-width: 1020px) {
+  .result-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flavor-panel {
+    width: min(700px, 94vw);
+    animation: panel-appear-down 0.22s ease-out;
+  }
+  @keyframes panel-appear-down {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 /* min(700px, 94vw) handles fluid scaling automatically.
    The only remaining edge case is very narrow phones where

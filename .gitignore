@@ -16,5 +16,12 @@ out/
 # Claude settings
 .claude/
 
-# assets (reference files not needed for build)
-assets/drink_image_prompts.json
+# top-level assets/ — working/draft folder, app uses src/assets/ instead
+assets/
+
+# unused Next.js boilerplate SVGs
+public/file.svg
+public/globe.svg
+public/next.svg
+public/vercel.svg
+public/window.svg
