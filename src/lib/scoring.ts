@@ -46,7 +46,11 @@ export function calculateResult(answers: Record<string, number>): Cocktail {
   let best: Cocktail = cocktailsData[0]
   let bestDist = Infinity
 
+  // Exclude special/Easter-egg cocktails that aren't reachable through normal play
+  const EXCLUDED = new Set(["Glass of Water", "The Bartender's Secret"])
+
   for (const cocktail of cocktailsData) {
+    if (EXCLUDED.has(cocktail.cocktailName)) continue
     const attrs = cocktail.attributes as Record<string, Record<string, number>>
     let distSq = 0
     for (const dim of DIMENSIONS) {
