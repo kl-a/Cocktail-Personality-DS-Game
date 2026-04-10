@@ -183,6 +183,7 @@ interface Spec {
   ice?:     'block' | 'cubes' | null
   layer?:   { top: string; bottom: string } | null
   bubbles?: boolean
+  empty?:   boolean   // strips all liquid/garnish — glass outline only
 }
 
 function RocksGlass(s: Spec) {
@@ -207,7 +208,7 @@ function RocksGlass(s: Spec) {
       {s.garnish === 'cherry'      && <Cherry x={36} y={28}/>}
       {s.garnish === 'orange-peel' && <OrangePeel x={58} y={32}/>}
       {s.garnish === 'lime'        && <Lime x={62} y={30}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -223,7 +224,7 @@ function MartiniGlass(s: Spec) {
       <rect x={25} y={84} width={30} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'olive'       && <Olive x={40} y={30}/>}
       {s.garnish === 'orange-peel' && <OrangePeel x={66} y={18}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -240,7 +241,7 @@ function MargaritaGlass(s: Spec) {
       <rect x={37} y={60} width={6}  height={24} fill={GLS} stroke={OUT} strokeWidth={1}/>
       <rect x={24} y={84} width={32} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'lime' && <Lime x={66} y={22}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -259,7 +260,7 @@ function CoupeGlass(s: Spec) {
       {s.garnish === 'cherry'   && <Cherry x={36} y={24}/>}
       {s.garnish === 'lavender' && <Lavender x={58} y={26}/>}
       {!s.foam && s.garnish === 'coffee-beans' && <CoffeeBeans x={40} y={36}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -274,7 +275,7 @@ function ChampagneFlute(s: Spec) {
       <rect x={38} y={76} width={4}  height={10} fill={GLS} stroke={OUT} strokeWidth={1}/>
       <rect x={27} y={86} width={26} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'lemon' && <LemonTwist x={44} y={10}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -287,7 +288,7 @@ function HurricaneGlass(s: Spec) {
       <polygon points={lPts} fill={s.liquid}/>
       <polygon points={bPts} fill="none" stroke={GLS} strokeWidth={2.5} strokeLinejoin="miter"/>
       {s.garnish === 'pineapple' && <Pineapple x={50} y={8}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -304,7 +305,7 @@ function WineGlass(s: Spec) {
       <rect x={38} y={62} width={4}  height={22} fill={GLS} stroke={OUT} strokeWidth={1}/>
       <rect x={25} y={84} width={30} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'orange-slices' && <OrangeSlices x={52} y={28}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -328,7 +329,7 @@ function CopperMug(s: Spec) {
       <circle cx={20} cy={34} r={1.5} fill="#a06020"/>
       <circle cx={60} cy={34} r={1.5} fill="#a06020"/>
       {s.garnish === 'lime' && <Lime x={60} y={24}/>}
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -358,7 +359,7 @@ function SecretGlass(_s: Spec) {
       <text x={40} y={68} textAnchor="middle" fontFamily="monospace" fontSize={14} fill="rgba(255,255,255,0.7)" fontWeight="bold">?</text>
       {/* Glint */}
       <rect x={30} y={44} width={4} height={10} rx={1} fill="rgba(255,255,255,0.15)"/>
-      <AmbientBubbles cx={40}/>
+      {!s.empty && <AmbientBubbles cx={40}/>}
     </>
   )
 }
@@ -389,6 +390,7 @@ const VISUALS: Record<string, Visual> = {
   'Negroni':                { glass:'rocks',     liquid:'#b01808', ice:'block'                           },
   'French 75':              { glass:'flute',     liquid:'#d8cc58', bubbles:true, garnish:'lemon'         },
   "The Bartender's Secret": { glass:'secret',    liquid:'#1a0828'                                        },
+  'Glass of Water':         { glass:'rocks',     liquid:'#c8eaf8', ice:'cubes'                           },
 }
 
 const GLASS_FN: Record<GlassType, (s: Spec) => React.ReactElement> = {
@@ -410,21 +412,35 @@ function TableLine() {
 
 // ── Main export ──────────────────────────────────────────────────────────────
 
-export default function CocktailPixelArt({ cocktailName }: { cocktailName: string }) {
+export default function CocktailPixelArt({
+  cocktailName,
+  empty    = false,
+  svgWidth  = 120,
+  svgHeight = 150,
+}: {
+  cocktailName: string
+  empty?:       boolean
+  svgWidth?:    number
+  svgHeight?:   number
+}) {
   const visual = VISUALS[cocktailName] ?? VISUALS['Margarita']
   const DrawGlass = GLASS_FN[visual.glass]
+
+  const spec: Spec = empty
+    ? { ...visual, liquid: 'transparent', foam: false, garnish: null, ice: null, bubbles: false, layer: null, empty: true }
+    : visual
 
   return (
     <svg
       viewBox="0 0 80 110"
       xmlns="http://www.w3.org/2000/svg"
-      width={120}
-      height={150}
+      width={svgWidth}
+      height={svgHeight}
       style={{ imageRendering: 'pixelated', display: 'block' }}
       aria-label={`${cocktailName} illustration`}
     >
       <TableLine/>
-      <DrawGlass {...visual}/>
+      <DrawGlass {...spec}/>
     </svg>
   )
 }

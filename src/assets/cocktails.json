@@ -288,6 +288,24 @@
       }
     },
     {
+      "cocktailName": "Glass of Water",
+      "mbtiType": "H2O",
+      "personalityBlurb": "Tonight you made the brave, correct, and frankly very mature choice. The humble glass of water. Your headache tomorrow is going to be so much smaller than everyone else's. Future you is already grateful. Go drink some water. Maybe two.",
+      "attributes": {
+        "movement": { "slow": 3, "quick": 3 },
+        "speech": { "polite": 3, "direct": 3 },
+        "expressiveness": { "flat": 3, "varied": 3 },
+        "attitude": { "serious": 3, "relaxed": 3 }
+      },
+      "flavorProfile": {
+        "sweet": 0,
+        "sour": 0,
+        "bitter": 0,
+        "salty": 0,
+        "umami": 0
+      }
+    },
+    {
       "cocktailName": "The Bartender's Secret",
       "mbtiType": "????",
       "personalityBlurb": "You found the hidden menu. You're the kind of person who reads the manual, flips the cartridge, and types the cheat code just to see what happens. Curious, irreverent, and deeply chaotic in the best possible way. The bartender doesn't know what's in this drink either. That's the point.",

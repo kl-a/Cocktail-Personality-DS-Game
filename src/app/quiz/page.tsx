@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import DSFrame from '@/components/DSFrame'
-import quizData from '@/assets/quiz.json'
+import DSFrame    from '@/components/DSFrame'
+import GlassShelf from '@/components/GlassShelf'
+import quizData   from '@/assets/quiz.json'
 import { calculateResult } from '@/lib/scoring'
 import { playAnswerTone, playConfirm } from '@/lib/sounds'
-
-const TOTAL = quizData.questions.length
+import { getGlasses } from '@/lib/glassHistory'
 
 const DIMENSION_LABELS: Record<string, string> = {
   movement:       'Energy',
@@ -16,18 +16,49 @@ const DIMENSION_LABELS: Record<string, string> = {
   attitude:       'Vibe',
 }
 
+// ── AA question — shown when the tab reaches 5 glasses ───────────────────────
+
+const AA_QUESTION = {
+  id:        'aa_check',
+  text:      'Have you heard of Alcoholics Anonymous?',
+  dimension: 'attitude',
+  answers: [
+    { text: "I've been to a few meetings. For a friend.",  score: 2, water: true  },
+    { text: "No. Why would I? I'm completely fine.",       score: 5, water: false },
+    { text: "I sponsor three people there.",               score: 3, water: true  },
+    { text: "I FOUNDED the local chapter. And named it.",  score: 1, water: true  },
+    { text: "They meet Tuesdays. I avoid Tuesdays now.",   score: 4, water: false },
+  ],
+} as const
+
+type AAAnswer = typeof AA_QUESTION.answers[number]
+
+// ── Component ────────────────────────────────────────────────────────────────
+
 export default function QuizPage() {
   const [current,  setCurrent]  = useState(0)
   const [answers,  setAnswers]  = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<number | null>(null)
   const [shaking,  setShaking]  = useState(false)
   const [idle,     setIdle]     = useState(false)
-  const idleTimer               = useRef<ReturnType<typeof setTimeout>>()
+  const [glasses,  setGlasses]  = useState<string[]>([])
+  const idleTimer = useRef<ReturnType<typeof setTimeout>>()
   const router = useRouter()
 
-  const question = quizData.questions[current]
+  // Read glass history once on mount (client-only)
+  useEffect(() => {
+    setGlasses(getGlasses())
+  }, [])
 
-  // Shuffle tone slots on every new question so each answer button gets a unique note
+  // Build the questions array — prepend AA question when the tab is full
+  const questions = useMemo(
+    () => glasses.length >= 5 ? [AA_QUESTION, ...quizData.questions] : quizData.questions,
+    [glasses.length], // eslint-disable-line react-hooks/exhaustive-deps
+  )
+  const TOTAL    = questions.length
+  const question = questions[current]
+
+  // Shuffle tone slots on every new question
   const toneOrder = useMemo(() => {
     const arr = [0, 1, 2, 3, 4]
     for (let i = arr.length - 1; i > 0; i--) {
@@ -37,7 +68,7 @@ export default function QuizPage() {
     return arr
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Reset idle timer whenever the question advances or an answer is selected
+  // Reset idle timer on question change or selection
   useEffect(() => {
     setIdle(false)
     clearTimeout(idleTimer.current)
@@ -45,14 +76,20 @@ export default function QuizPage() {
     return () => clearTimeout(idleTimer.current)
   }, [current, selected])
 
-  const handleAnswer = useCallback((score: number, slotIndex: number) => {
-    if (selected !== null) return   // prevent double-tap
+  const handleAnswer = useCallback((score: number, slotIndex: number, water = false) => {
+    if (selected !== null) return
     playAnswerTone(toneOrder[slotIndex])
     setSelected(score)
     setShaking(true)
-
-    // Reset shake class so it can re-trigger on the next answer
     setTimeout(() => setShaking(false), 300)
+
+    // AA question "yes" answer → redirect to glass of water screen
+    if (water) {
+      setTimeout(() => {
+        router.push(`/result?cocktail=${encodeURIComponent('Glass of Water')}`)
+      }, 220)
+      return
+    }
 
     setTimeout(() => {
       playConfirm()
@@ -67,7 +104,7 @@ export default function QuizPage() {
         router.push(`/result?cocktail=${encodeURIComponent(result.cocktailName)}`)
       }
     }, 220)
-  }, [selected, answers, current, question.id, router, toneOrder])
+  }, [selected, answers, current, question.id, router, toneOrder, TOTAL])
 
   const topScreen = (
     <>
@@ -81,14 +118,13 @@ export default function QuizPage() {
         Question {current + 1} of {TOTAL}
       </div>
 
-      {/* Progress dots */}
       <div className="progress-dots">
-        {quizData.questions.map((_, i) => (
+        {questions.map((_, i) => (
           <div
             key={i}
             className={
               'progress-dot' +
-              (i < current ? ' done' : '') +
+              (i < current  ? ' done'    : '') +
               (i === current ? ' current' : '')
             }
           />
@@ -98,8 +134,6 @@ export default function QuizPage() {
   )
 
   const bottomScreen = (
-    // key={current} causes React to remount this div when the question changes,
-    // which restarts the CSS wipe-in animation each time.
     <div key={current} className="question-wipe">
       <div className="question-number">Q{current + 1}</div>
       <div className="question-text">{question.text}</div>
@@ -107,11 +141,12 @@ export default function QuizPage() {
       <ul className={`answer-list${idle ? ' answer-list--idle' : ''}`}>
         {question.answers.map((ans, i) => {
           const isSelected = selected === ans.score
+          const water = 'water' in (ans as AAAnswer) ? (ans as AAAnswer).water : false
           return (
             <li key={ans.score}>
               <button
                 className={`answer-btn${isSelected ? ' answer-btn--selected' : ''}`}
-                onClick={() => handleAnswer(ans.score, i)}
+                onClick={() => handleAnswer(ans.score, i, water)}
                 disabled={selected !== null}
                 style={isSelected ? {
                   borderColor: 'var(--mint)',
@@ -128,5 +163,10 @@ export default function QuizPage() {
     </div>
   )
 
-  return <DSFrame topScreen={topScreen} bottomScreen={bottomScreen} shake={shaking}/>
+  return (
+    <>
+      <GlassShelf glasses={glasses} />
+      <DSFrame topScreen={topScreen} bottomScreen={bottomScreen} shake={shaking} />
+    </>
+  )
 }

@@ -9,6 +9,7 @@ import Confetti       from '@/components/Confetti'
 import TypewriterText from '@/components/TypewriterText'
 import cocktailsData  from '@/assets/cocktails.json'
 import { playSuccess } from '@/lib/sounds'
+import { addGlass }   from '@/lib/glassHistory'
 
 const FLAVOR_COLORS: Record<string, string> = {
   sweet:  'var(--flavor-sweet)',
@@ -50,13 +51,17 @@ function ResultContent() {
   const cocktail = cocktailsData.find(c => c.cocktailName === name) ?? cocktailsData[0]
   const [screenOn, setScreenOn] = useState(true)
 
-  // Fire success sound + confetti on mount
+  // Fire success sound + confetti on mount; record glass for the shelf
   const [showConfetti, setShowConfetti] = useState(false)
   useEffect(() => {
     setShowConfetti(true)
     const t = setTimeout(() => playSuccess(), 200)
+    // Don't record "Glass of Water" — that's not a real drinking session
+    if (cocktail.cocktailName !== 'Glass of Water') {
+      addGlass(cocktail.cocktailName)
+    }
     return () => clearTimeout(t)
-  }, [name])
+  }, [name]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const flavors  = cocktail.flavorProfile as Record<string, number>
   const maxScore = 5
