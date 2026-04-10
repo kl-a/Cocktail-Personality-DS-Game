@@ -1,0 +1,130 @@
+{
+  "quizMeta": {
+    "title": "A Night That Escalated Way Too Quickly",
+    "description": "Make choices. Regret nothing. Get a cocktail.",
+    "version": "1.0"
+  },
+  "dimensions": ["movement", "speech", "expressiveness", "attitude"],
+  "questions": [
+    {
+      "id": "q1",
+      "text": "You get a last-minute message: 'We’re going out. No plan. Just vibes. You in?'",
+      "dimension": "attitude",
+      "answers": [
+        { "text": "No thanks, I already mentally committed to staying home", "score": 1 },
+        { "text": "Maybe… what’s the plan though?", "score": 2 },
+        { "text": "I could be convinced", "score": 3 },
+        { "text": "Sure, sounds fun", "score": 4 },
+        { "text": "Already putting shoes on, I'm the one who sent the group message", "score": 5 }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "The driver misses a turn.",
+      "dimension": "movement",
+      "answers": [
+        { "text": "Say nothing", "score": 1 },
+        { "text": "Mention it...eventually", "score": 2 },
+        { "text": "Point it out politely", "score": 3 },
+        { "text": "Correct them clearly", "score": 4 },
+        { "text": "Take over navigation instantly", "score": 5 }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "Bartender asks what you want.",
+      "dimension": "expressiveness",
+      "answers": [
+        { "text": "Order something safe", "score": 1 },
+        { "text": "Copy someone else or what the table wants", "score": 2 },
+        { "text": "Pick something you like", "score": 3 },
+        { "text": "Ask for recommendations", "score": 4 },
+        { "text": "“Surprise me”", "score": 5 }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "People start dancing.",
+      "dimension": "expressiveness",
+      "answers": [
+        { "text": "Observe only", "score": 1 },
+        { "text": "Head bop along", "score": 2 },
+        { "text": "Shuffle on and dance on the edge", "score": 3 },
+        { "text": "Full dancing mode, you're vibing", "score": 4 },
+        { "text": "Main character mode, the dace floor is yours now!", "score": 5 }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "A stranger starts talking to you.",
+      "dimension": "speech",
+      "answers": [
+        { "text": "Exit ASAP", "score": 1 },
+        { "text": "Short polite replies and hope they leave", "score": 2 },
+        { "text": "Chat a little bit, be nice", "score": 3 },
+        { "text": "Engage properly and see where it goes", "score": 4 },
+        { "text": "Lead the conversation, you're the stranger they fear", "score": 5 }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "Someone suggests a second location.",
+      "dimension": "attitude",
+      "answers": [
+        { "text": "No thanks, I need to go feed my tamagotchi", "score": 1 },
+        { "text": "Hesitant because it's getting late", "score": 2 },
+        { "text": "Depends on where we're going", "score": 3 },
+        { "text": "Sounds fun - more time with the gang", "score": 4 },
+        { "text": "Let’s escalate this!! *you take a bottle with you*", "score": 5 }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Late night food chaos.",
+      "dimension": "movement",
+      "answers": [
+        { "text": "Wait patiently for the gang to decide", "score": 1 },
+        { "text": "Slow decision, wanting to get everyones input", "score": 2 },
+        { "text": "Normal ordering - go to the ol' favourites, Maccas", "score": 3 },
+        { "text": "Quick decision - whats open next door", "score": 4 },
+        { "text": "Order for everyone, we need to keep moving ASAP", "score": 5 }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "“Hey lnog time no see, what are you doing with your life?”",
+      "dimension": "speech",
+      "answers": [
+        { "text": "Deflect and ask them instead", "score": 1 },
+        { "text": "Safe answer, 'oh you know, the same old'", "score": 2 },
+        { "text": "Light honesty", "score": 3 },
+        { "text": "Real answer", "score": 4 },
+        { "text": "Deep philosophical rant", "score": 5 }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "“Let’s go somewhere else…”",
+      "dimension": "attitude",
+      "answers": [
+        { "text": "Nope", "score": 1 },
+        { "text": "Suspicious", "score": 2 },
+        { "text": "Ask questions", "score": 3 },
+        { "text": "Sure", "score": 4 },
+        { "text": "Best story incoming", "score": 5 }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "Heading home.",
+      "dimension": "expressiveness",
+      "answers": [
+        { "text": "Silent processing", "score": 1 },
+        { "text": "Quiet content", "score": 2 },
+        { "text": "Chill reflection", "score": 3 },
+        { "text": "Still chatting", "score": 4 },
+        { "text": "Planning next night", "score": 5 }
+      ]
+    }
+  ]
+}
