@@ -55,6 +55,18 @@ function Bubbles({ xs, ys }: { xs:number[]; ys:number[] }) {
   )
 }
 
+// ── Ambient floating bubbles (all drinks) ────────────────────────────────────
+
+function AmbientBubbles({ cx }: { cx: number }) {
+  return (
+    <g>
+      <circle cx={cx - 6} cy={72} r={1.2} fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth={0.8} className="bubble-1"/>
+      <circle cx={cx + 5} cy={68} r={1.0} fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth={0.8} className="bubble-2"/>
+      <circle cx={cx - 1} cy={76} r={1.5} fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth={0.8} className="bubble-3"/>
+    </g>
+  )
+}
+
 // ── Garnishes ────────────────────────────────────────────────────────────────
 
 function Lime({ x, y }: { x:number; y:number }) {
@@ -195,6 +207,7 @@ function RocksGlass(s: Spec) {
       {s.garnish === 'cherry'      && <Cherry x={36} y={28}/>}
       {s.garnish === 'orange-peel' && <OrangePeel x={58} y={32}/>}
       {s.garnish === 'lime'        && <Lime x={62} y={30}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -210,6 +223,7 @@ function MartiniGlass(s: Spec) {
       <rect x={25} y={84} width={30} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'olive'       && <Olive x={40} y={30}/>}
       {s.garnish === 'orange-peel' && <OrangePeel x={66} y={18}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -226,6 +240,7 @@ function MargaritaGlass(s: Spec) {
       <rect x={37} y={60} width={6}  height={24} fill={GLS} stroke={OUT} strokeWidth={1}/>
       <rect x={24} y={84} width={32} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'lime' && <Lime x={66} y={22}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -244,6 +259,7 @@ function CoupeGlass(s: Spec) {
       {s.garnish === 'cherry'   && <Cherry x={36} y={24}/>}
       {s.garnish === 'lavender' && <Lavender x={58} y={26}/>}
       {!s.foam && s.garnish === 'coffee-beans' && <CoffeeBeans x={40} y={36}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -258,6 +274,7 @@ function ChampagneFlute(s: Spec) {
       <rect x={38} y={76} width={4}  height={10} fill={GLS} stroke={OUT} strokeWidth={1}/>
       <rect x={27} y={86} width={26} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'lemon' && <LemonTwist x={44} y={10}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -270,6 +287,7 @@ function HurricaneGlass(s: Spec) {
       <polygon points={lPts} fill={s.liquid}/>
       <polygon points={bPts} fill="none" stroke={GLS} strokeWidth={2.5} strokeLinejoin="miter"/>
       {s.garnish === 'pineapple' && <Pineapple x={50} y={8}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -286,6 +304,7 @@ function WineGlass(s: Spec) {
       <rect x={38} y={62} width={4}  height={22} fill={GLS} stroke={OUT} strokeWidth={1}/>
       <rect x={25} y={84} width={30} height={6}  fill={GLS} stroke={OUT} strokeWidth={1}/>
       {s.garnish === 'orange-slices' && <OrangeSlices x={52} y={28}/>}
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
@@ -309,35 +328,67 @@ function CopperMug(s: Spec) {
       <circle cx={20} cy={34} r={1.5} fill="#a06020"/>
       <circle cx={60} cy={34} r={1.5} fill="#a06020"/>
       {s.garnish === 'lime' && <Lime x={60} y={24}/>}
+      <AmbientBubbles cx={40}/>
+    </>
+  )
+}
+
+// ── Secret Easter egg glass ──────────────────────────────────────────────────
+
+function SecretGlass(_s: Spec) {
+  // A mysterious potion bottle with rainbow layers and a question mark
+  return (
+    <>
+      {/* Bottle body */}
+      <rect x={26} y={38} width={28} height={52} rx={4} fill="#1a0828"/>
+      {/* Rainbow layers */}
+      <rect x={27} y={79} width={26} height={10} fill="#c81830" opacity={0.85}/>
+      <rect x={27} y={70} width={26} height={9}  fill="#f08020" opacity={0.85}/>
+      <rect x={27} y={61} width={26} height={9}  fill="#ffd23f" opacity={0.85}/>
+      <rect x={27} y={52} width={26} height={9}  fill="#4a9040" opacity={0.85}/>
+      <rect x={27} y={43} width={26} height={9}  fill="#64b5f6" opacity={0.85}/>
+      <rect x={27} y={38} width={26} height={5}  fill="#c084fc" opacity={0.85}/>
+      {/* Bottle outline */}
+      <rect x={26} y={38} width={28} height={52} rx={4} fill="none" stroke={GLS} strokeWidth={2}/>
+      {/* Neck */}
+      <rect x={33} y={24} width={14} height={16} rx={2} fill="#1a0828" stroke={GLS} strokeWidth={2}/>
+      {/* Cork */}
+      <rect x={35} y={18} width={10} height={8} rx={2} fill="#c8a860" stroke="#906830" strokeWidth={1.5}/>
+      {/* ? mark */}
+      <text x={40} y={68} textAnchor="middle" fontFamily="monospace" fontSize={14} fill="rgba(255,255,255,0.7)" fontWeight="bold">?</text>
+      {/* Glint */}
+      <rect x={30} y={44} width={4} height={10} rx={1} fill="rgba(255,255,255,0.15)"/>
+      <AmbientBubbles cx={40}/>
     </>
   )
 }
 
 // ── Cocktail → visual spec mapping ──────────────────────────────────────────
 
-type GlassType = 'rocks'|'martini'|'margarita'|'coupe'|'flute'|'hurricane'|'wine'|'mug'
+type GlassType = 'rocks'|'martini'|'margarita'|'coupe'|'flute'|'hurricane'|'wine'|'mug'|'secret'
 
 interface Visual extends Spec { glass: GlassType }
 
 const VISUALS: Record<string, Visual> = {
-  'Margarita':        { glass:'margarita', liquid:'#70b858', rim:'salt',   garnish:'lime'          },
-  'Cosmopolitan':     { glass:'martini',   liquid:'#e05878',               garnish:'orange-peel'   },
-  'Whiskey Sour':     { glass:'rocks',     liquid:'#b87030', foam:true,    garnish:'cherry'        },
-  'Pina Colada':      { glass:'hurricane', liquid:'#f0ece0',               garnish:'pineapple'     },
-  'Old Fashioned':    { glass:'rocks',     liquid:'#903820', ice:'block',  garnish:'orange-peel'   },
-  'Mimosa':           { glass:'flute',     liquid:'#e8c040', bubbles:true                          },
-  'Dry Martini':      { glass:'martini',   liquid:'#c8dcd0',               garnish:'olive'         },
-  'White Russian':    { glass:'rocks',     liquid:'#3a1808',
-                        layer:{ top:'#e8e0d0', bottom:'#3a1808' }                                  },
-  'Moscow Mule':      { glass:'mug',       liquid:'#c0d898', ice:'cubes',  garnish:'lime'          },
-  'Espresso Martini': { glass:'coupe',     liquid:'#1a0806', foam:true,    garnish:'coffee-beans'  },
-  "Dark 'n' Stormy":  { glass:'rocks',     liquid:'#c8c888',
-                        layer:{ top:'#181008', bottom:'#c8c888' }                                  },
-  'Amaretto Sour':    { glass:'coupe',     liquid:'#c07838', foam:true,    garnish:'lavender'      },
-  'Manhattan':        { glass:'coupe',     liquid:'#782018',               garnish:'cherry'        },
-  'Aperol Spritz':    { glass:'wine',      liquid:'#e86828', ice:'cubes',  garnish:'orange-slices', bubbles:true },
-  'Negroni':          { glass:'rocks',     liquid:'#b01808', ice:'block'                           },
-  'French 75':        { glass:'flute',     liquid:'#d8cc58', bubbles:true, garnish:'lemon'         },
+  'Margarita':              { glass:'margarita', liquid:'#70b858', rim:'salt',   garnish:'lime'          },
+  'Cosmopolitan':           { glass:'martini',   liquid:'#e05878',               garnish:'orange-peel'   },
+  'Whiskey Sour':           { glass:'rocks',     liquid:'#b87030', foam:true,    garnish:'cherry'        },
+  'Pina Colada':            { glass:'hurricane', liquid:'#f0ece0',               garnish:'pineapple'     },
+  'Old Fashioned':          { glass:'rocks',     liquid:'#903820', ice:'block',  garnish:'orange-peel'   },
+  'Mimosa':                 { glass:'flute',     liquid:'#e8c040', bubbles:true                          },
+  'Dry Martini':            { glass:'martini',   liquid:'#c8dcd0',               garnish:'olive'         },
+  'White Russian':          { glass:'rocks',     liquid:'#3a1808',
+                              layer:{ top:'#e8e0d0', bottom:'#3a1808' }                                  },
+  'Moscow Mule':            { glass:'mug',       liquid:'#c0d898', ice:'cubes',  garnish:'lime'          },
+  'Espresso Martini':       { glass:'coupe',     liquid:'#1a0806', foam:true,    garnish:'coffee-beans'  },
+  "Dark 'n' Stormy":        { glass:'rocks',     liquid:'#c8c888',
+                              layer:{ top:'#181008', bottom:'#c8c888' }                                  },
+  'Amaretto Sour':          { glass:'coupe',     liquid:'#c07838', foam:true,    garnish:'lavender'      },
+  'Manhattan':              { glass:'coupe',     liquid:'#782018',               garnish:'cherry'        },
+  'Aperol Spritz':          { glass:'wine',      liquid:'#e86828', ice:'cubes',  garnish:'orange-slices', bubbles:true },
+  'Negroni':                { glass:'rocks',     liquid:'#b01808', ice:'block'                           },
+  'French 75':              { glass:'flute',     liquid:'#d8cc58', bubbles:true, garnish:'lemon'         },
+  "The Bartender's Secret": { glass:'secret',    liquid:'#1a0828'                                        },
 }
 
 const GLASS_FN: Record<GlassType, (s: Spec) => React.ReactElement> = {
@@ -349,6 +400,7 @@ const GLASS_FN: Record<GlassType, (s: Spec) => React.ReactElement> = {
   hurricane: HurricaneGlass,
   wine:      WineGlass,
   mug:       CopperMug,
+  secret:    SecretGlass,
 }
 
 // Table surface line at the bottom of every illustration

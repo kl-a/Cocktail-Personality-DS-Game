@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import DSFrame from '@/components/DSFrame'
 import quizData from '@/assets/quiz.json'
 import { calculateResult } from '@/lib/scoring'
+import { playClick, playConfirm } from '@/lib/sounds'
 
 const TOTAL = quizData.questions.length
 
@@ -16,18 +17,35 @@ const DIMENSION_LABELS: Record<string, string> = {
 }
 
 export default function QuizPage() {
-  const [current, setCurrent]   = useState(0)
-  const [answers, setAnswers]   = useState<Record<string, number>>({})
+  const [current,  setCurrent]  = useState(0)
+  const [answers,  setAnswers]  = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<number | null>(null)
+  const [shaking,  setShaking]  = useState(false)
+  const [idle,     setIdle]     = useState(false)
+  const idleTimer               = useRef<ReturnType<typeof setTimeout>>()
   const router = useRouter()
 
   const question = quizData.questions[current]
 
-  function handleAnswer(score: number) {
+  // Reset idle timer whenever the question advances or an answer is selected
+  useEffect(() => {
+    setIdle(false)
+    clearTimeout(idleTimer.current)
+    idleTimer.current = setTimeout(() => setIdle(true), 3500)
+    return () => clearTimeout(idleTimer.current)
+  }, [current, selected])
+
+  const handleAnswer = useCallback((score: number) => {
     if (selected !== null) return   // prevent double-tap
+    playClick()
     setSelected(score)
+    setShaking(true)
+
+    // Reset shake class so it can re-trigger on the next answer
+    setTimeout(() => setShaking(false), 300)
 
     setTimeout(() => {
+      playConfirm()
       const newAnswers = { ...answers, [question.id]: score }
       setAnswers(newAnswers)
 
@@ -38,8 +56,8 @@ export default function QuizPage() {
         const result = calculateResult(newAnswers)
         router.push(`/result?cocktail=${encodeURIComponent(result.cocktailName)}`)
       }
-    }, 180)
-  }
+    }, 220)
+  }, [selected, answers, current, question.id, router])
 
   const topScreen = (
     <>
@@ -70,30 +88,35 @@ export default function QuizPage() {
   )
 
   const bottomScreen = (
-    <>
+    // key={current} causes React to remount this div when the question changes,
+    // which restarts the CSS wipe-in animation each time.
+    <div key={current} className="question-wipe">
       <div className="question-number">Q{current + 1}</div>
       <div className="question-text">{question.text}</div>
 
-      <ul className="answer-list">
-        {question.answers.map((ans) => (
-          <li key={ans.score}>
-            <button
-              className="answer-btn"
-              onClick={() => handleAnswer(ans.score)}
-              disabled={selected !== null}
-              style={selected === ans.score ? {
-                borderColor: 'var(--mint)',
-                background: 'rgba(125,207,182,0.12)',
-                color: 'var(--mint)',
-              } : undefined}
-            >
-              {ans.text}
-            </button>
-          </li>
-        ))}
+      <ul className={`answer-list${idle ? ' answer-list--idle' : ''}`}>
+        {question.answers.map((ans) => {
+          const isSelected = selected === ans.score
+          return (
+            <li key={ans.score}>
+              <button
+                className={`answer-btn${isSelected ? ' answer-btn--selected' : ''}`}
+                onClick={() => handleAnswer(ans.score)}
+                disabled={selected !== null}
+                style={isSelected ? {
+                  borderColor: 'var(--mint)',
+                  background:  'rgba(125,207,182,0.12)',
+                  color:       'var(--mint)',
+                } : undefined}
+              >
+                {ans.text}
+              </button>
+            </li>
+          )
+        })}
       </ul>
-    </>
+    </div>
   )
 
-  return <DSFrame topScreen={topScreen} bottomScreen={bottomScreen} />
+  return <DSFrame topScreen={topScreen} bottomScreen={bottomScreen} shake={shaking}/>
 }

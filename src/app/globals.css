@@ -531,6 +531,20 @@ img, canvas {
   align-items: center;
   justify-content: center;
 }
+
+.cocktail-image-frame svg {
+  transition: filter 0.25s ease;
+}
+.cocktail-image-frame svg:hover {
+  animation: cocktail-float 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(125, 207, 182, 0.5)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+@keyframes cocktail-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  30%       { transform: translateY(-5px) rotate(-1deg); }
+  70%       { transform: translateY(-3px) rotate(0.8deg); }
+}
+
 .cocktail-image-frame img {
   max-width: 100%;
   max-height: 130px;
@@ -643,6 +657,145 @@ img, canvas {
 @media (max-width: 360px) {
   .ds-top-half, .ds-bottom-half { padding-left: 12px; padding-right: 12px; }
   .ds-shoulders { margin-left: -12px; margin-right: -12px; }
+}
+
+/* ─── Confetti burst ─────────────────────────────────────────────────────── */
+@keyframes confetti-burst {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+  80%  { opacity: 0.7; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0.2) rotate(360deg); opacity: 0; }
+}
+
+/* ─── Typewriter cursor ──────────────────────────────────────────────────── */
+.typewriter-cursor {
+  display: inline-block;
+  animation: blink-text 0.7s step-end infinite;
+  color: var(--mint);
+}
+
+/* ─── DS device shake ────────────────────────────────────────────────────── */
+@keyframes ds-shake {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  20%  { transform: translate(-4px, 1px) rotate(-0.6deg); }
+  40%  { transform: translate(4px, -1px) rotate(0.6deg); }
+  60%  { transform: translate(-2px, 1px) rotate(-0.3deg); }
+  80%  { transform: translate(3px, -1px) rotate(0.3deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.ds-shake { animation: ds-shake 0.28s ease-out; }
+
+/* ─── Answer selected flash ──────────────────────────────────────────────── */
+@keyframes answer-flash {
+  0%, 100% { background: rgba(125, 207, 182, 0.12); }
+  40%       { background: rgba(125, 207, 182, 0.30); box-shadow: 0 0 14px rgba(125,207,182,0.35); }
+}
+.answer-btn--selected {
+  animation: answer-flash 0.18s ease-in-out 1;
+}
+
+/* ─── Question wipe-in transition ────────────────────────────────────────── */
+@keyframes question-wipe-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+.question-wipe {
+  animation: question-wipe-in 0.22s steps(8, end) forwards;
+}
+
+/* ─── Idle cursor jitter ─────────────────────────────────────────────────── */
+@keyframes cursor-jitter {
+  0%, 100% { transform: translateX(0);   color: var(--mint-dim); }
+  33%       { transform: translateX(3px); color: var(--yellow); }
+  66%       { transform: translateX(1px); color: var(--mint); }
+}
+.answer-list--idle .answer-btn::before {
+  animation: cursor-jitter 0.45s steps(3) infinite !important;
+}
+
+/* ─── Boot screen ────────────────────────────────────────────────────────── */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+.boot-screen--fade { opacity: 0; pointer-events: none; }
+
+.boot-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  letter-spacing: 1.5px;
+}
+.boot-line {
+  animation: boot-line-in 0.05s ease-out both;
+}
+@keyframes boot-line-in {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.boot-cursor {
+  display: inline-block;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--mint);
+  margin-top: 4px;
+  animation: blink-text 0.8s step-end infinite;
+}
+
+/* ─── Time-of-day tints (applied to <html> via data-time) ───────────────── */
+html[data-time="morning"] body {
+  background: #05080f;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, #0e1535 0%, #05080f 60%),
+    radial-gradient(circle, #181d2e 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px;
+}
+html[data-time="evening"] body {
+  background: #0f0608;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, #351510 0%, #0f0608 60%),
+    radial-gradient(circle, #2e1a18 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px;
+}
+html[data-time="night"] body {
+  background: #050410;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, #160f3a 0%, #050410 60%),
+    radial-gradient(circle, #1a1540 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px;
+}
+
+/* ─── Ambient SVG bubbles ────────────────────────────────────────────────── */
+@keyframes bubble-rise {
+  0%   { transform: translateY(0px);   opacity: 0; }
+  15%  { opacity: 0.8; }
+  85%  { opacity: 0.4; }
+  100% { transform: translateY(-28px); opacity: 0; }
+}
+.bubble-1 { animation: bubble-rise 2.8s ease-in 0s    infinite; }
+.bubble-2 { animation: bubble-rise 3.4s ease-in 1.1s  infinite; }
+.bubble-3 { animation: bubble-rise 2.2s ease-in 2.0s  infinite; }
+
+/* ─── Easter egg flash overlay ───────────────────────────────────────────── */
+@keyframes konami-flash {
+  0%,100% { opacity: 0; }
+  10%,30%,50% { opacity: 0.15; }
+  20%,40% { opacity: 0; }
+}
+.konami-flash {
+  position: fixed;
+  inset: 0;
+  background: var(--mint);
+  pointer-events: none;
+  z-index: 998;
+  animation: konami-flash 0.7s ease-out forwards;
 }
 
 /* ─── Sparkles ────────────────────────────────────────────────────────────── */

@@ -2,21 +2,24 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
+import { playPower } from '@/lib/sounds'
 
 interface DSFrameProps {
   topScreen:      ReactNode
   bottomScreen:   ReactNode
   onPowerChange?: (on: boolean) => void
+  shake?:         boolean
 }
 
 type PowerAnim = 'off' | 'on' | null
 
-export default function DSFrame({ topScreen, bottomScreen, onPowerChange }: DSFrameProps) {
-  const [on,       setOn]       = useState(true)
+export default function DSFrame({ topScreen, bottomScreen, onPowerChange, shake }: DSFrameProps) {
+  const [on,        setOn]        = useState(true)
   const [animating, setAnimating] = useState<PowerAnim>(null)
 
   function togglePower() {
     if (animating) return   // don't interrupt mid-animation
+    playPower()
 
     if (on) {
       // Turning off: play CRT-collapse, then hide content
@@ -40,7 +43,7 @@ export default function DSFrame({ topScreen, bottomScreen, onPowerChange }: DSFr
     animating === 'on'  ? 'crt-powering-on'  : ''
 
   return (
-    <div className="ds-device">
+    <div className={`ds-device${shake ? ' ds-shake' : ''}`}>
       {/* ── Top half ── */}
       <div className="ds-top-half">
         <div className="ds-speakers ds-speakers-left" aria-hidden="true">

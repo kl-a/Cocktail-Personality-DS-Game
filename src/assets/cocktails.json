@@ -286,5 +286,23 @@
         "salty": 0,
         "umami": 0
       }
+    },
+    {
+      "cocktailName": "The Bartender’s Secret",
+      "mbtiType": "????",
+      "personalityBlurb": "You found the hidden menu. You’re the kind of person who reads the manual, flips the cartridge, and types the cheat code just to see what happens. Curious, irreverent, and deeply chaotic in the best possible way. The bartender doesn’t know what’s in this drink either. That’s the point.",
+      "attributes": {
+        "movement": { "slow": 3, "quick": 3 },
+        "speech": { "polite": 3, "direct": 3 },
+        "expressiveness": { "flat": 3, "varied": 3 },
+        "attitude": { "serious": 3, "relaxed": 3 }
+      },
+      "flavorProfile": {
+        "sweet": 5,
+        "sour": 5,
+        "bitter": 5,
+        "salty": 5,
+        "umami": 5
+      }
     }
   ]
