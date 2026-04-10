@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import DSFrame from '@/components/DSFrame'
 import quizData from '@/assets/quiz.json'
 import { calculateResult } from '@/lib/scoring'
-import { playClick, playConfirm } from '@/lib/sounds'
+import { playAnswerTone, playConfirm } from '@/lib/sounds'
 
 const TOTAL = quizData.questions.length
 
@@ -27,6 +27,16 @@ export default function QuizPage() {
 
   const question = quizData.questions[current]
 
+  // Shuffle tone slots on every new question so each answer button gets a unique note
+  const toneOrder = useMemo(() => {
+    const arr = [0, 1, 2, 3, 4]
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
+  }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // Reset idle timer whenever the question advances or an answer is selected
   useEffect(() => {
     setIdle(false)
@@ -35,9 +45,9 @@ export default function QuizPage() {
     return () => clearTimeout(idleTimer.current)
   }, [current, selected])
 
-  const handleAnswer = useCallback((score: number) => {
+  const handleAnswer = useCallback((score: number, slotIndex: number) => {
     if (selected !== null) return   // prevent double-tap
-    playClick()
+    playAnswerTone(toneOrder[slotIndex])
     setSelected(score)
     setShaking(true)
 
@@ -57,7 +67,7 @@ export default function QuizPage() {
         router.push(`/result?cocktail=${encodeURIComponent(result.cocktailName)}`)
       }
     }, 220)
-  }, [selected, answers, current, question.id, router])
+  }, [selected, answers, current, question.id, router, toneOrder])
 
   const topScreen = (
     <>
@@ -95,13 +105,13 @@ export default function QuizPage() {
       <div className="question-text">{question.text}</div>
 
       <ul className={`answer-list${idle ? ' answer-list--idle' : ''}`}>
-        {question.answers.map((ans) => {
+        {question.answers.map((ans, i) => {
           const isSelected = selected === ans.score
           return (
             <li key={ans.score}>
               <button
                 className={`answer-btn${isSelected ? ' answer-btn--selected' : ''}`}
-                onClick={() => handleAnswer(ans.score)}
+                onClick={() => handleAnswer(ans.score, i)}
                 disabled={selected !== null}
                 style={isSelected ? {
                   borderColor: 'var(--mint)',

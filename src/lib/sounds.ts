@@ -33,10 +33,13 @@ function tone(
   } catch { /* ignore if AudioContext is suspended */ }
 }
 
-/** Short blip — answer button click */
-export function playClick() {
-  tone(440, 0.07)
-  tone(600, 0.05, 'square', 0.04, 0.06)
+// 5 distinct answer tones — C major pentatonic spread
+const ANSWER_TONES = [262, 330, 392, 523, 659] // C4 E4 G4 C5 E5
+
+/** Play one of 5 distinct tones by slot index (0–4) */
+export function playAnswerTone(slotIndex: number) {
+  const freq = ANSWER_TONES[slotIndex % ANSWER_TONES.length]
+  tone(freq, 0.09, 'square', 0.07)
 }
 
 /** Confirm chime — after selecting an answer */
