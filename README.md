@@ -17,8 +17,8 @@ Built with Next.js 16 (App Router), no Tailwind, pixel fonts (Press Start 2P + V
 
 ```bash
 # 1. Clone the repo
-git clone <your-repo-url>
-cd cocktail_personality_site
+git clone git@github.com:kl-a/Cocktail-Personality-DS-Game.git
+cd Cocktail-Personality-DS-Game
 
 # 2. Install dependencies
 npm install
@@ -60,15 +60,28 @@ File naming uses this slug format — lowercase, apostrophes stripped, spaces/sp
 | Aperol Spritz | `aperol-spritz.png` |
 | Negroni | `negroni.png` |
 
-Then in [`src/app/result/page.tsx`](src/app/result/page.tsx), replace the `ImageWithFallback` component with the `<Image>` tag that's already written in the comment:
+Then in [`src/app/result/page.tsx`](src/app/result/page.tsx), replace the `<CocktailPixelArt>` component with a Next.js `<Image>` tag. The slug helper is already in [`src/lib/scoring.ts`](src/lib/scoring.ts):
 
 ```tsx
-// Before (placeholder):
-<ImageWithFallback src={imgSrc} alt={cocktail.cocktailName} />
+// Before (SVG placeholder):
+import CocktailPixelArt from '@/components/CocktailPixelArt'
+// ...
+<CocktailPixelArt cocktailName={cocktail.cocktailName} />
 
 // After (real image):
-<Image src={imgSrc} alt={cocktail.cocktailName} width={80} height={110} style={{ imageRendering: 'pixelated' }} />
+import Image from 'next/image'
+import { cocktailSlug } from '@/lib/scoring'
+// ...
+<Image
+  src={`/images/cocktails/${cocktailSlug(cocktail.cocktailName)}.png`}
+  alt={cocktail.cocktailName}
+  width={80}
+  height={110}
+  style={{ imageRendering: 'pixelated' }}
+/>
 ```
+
+Once images are wired up, `src/components/CocktailPixelArt.tsx` can be deleted.
 
 ---
 
@@ -98,9 +111,12 @@ src/
 │   ├── cocktails.json     # 16 cocktails with attributes, blurbs, flavour profiles
 │   └── quiz.json          # 10 questions mapped to personality dimensions
 ├── components/
-│   └── DSFrame.tsx        # DS device frame wrapper (top screen + bottom screen)
+│   ├── DSFrame.tsx        # DS device frame wrapper (top screen + bottom screen), power toggle with CRT animation
+│   ├── CocktailPixelArt.tsx # SVG pixel-art cocktail illustrations (placeholder until real images added)
+│   ├── AudioPlayer.tsx    # optional lofi stream player — set STREAM_URL inside the file to enable
+│   └── Sparkles.tsx       # decorative animated pixel sparkles rendered around the DS frame
 └── lib/
-    └── scoring.ts         # personality matching algorithm
+    └── scoring.ts         # personality matching algorithm + cocktailSlug() helper for image paths
 
 public/
 └── images/cocktails/      # drop drink PNGs here
