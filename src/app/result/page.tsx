@@ -9,7 +9,7 @@ import Confetti       from '@/components/Confetti'
 import TypewriterText from '@/components/TypewriterText'
 import cocktailsData  from '@/assets/cocktails.json'
 import { playSuccess } from '@/lib/sounds'
-import { addGlass }   from '@/lib/glassHistory'
+import { addGlass, clearGlasses } from '@/lib/glassHistory'
 
 const FLAVOR_COLORS: Record<string, string> = {
   sweet:  'var(--flavor-sweet)',
@@ -56,8 +56,9 @@ function ResultContent() {
   useEffect(() => {
     setShowConfetti(true)
     const t = setTimeout(() => playSuccess(), 200)
-    // Don't record "Glass of Water" — that's not a real drinking session
-    if (cocktail.cocktailName !== 'Glass of Water') {
+    if (cocktail.cocktailName === 'Glass of Water') {
+      clearGlasses()   // redemption arc — the tab is wiped
+    } else {
       addGlass(cocktail.cocktailName)
     }
     return () => clearTimeout(t)
@@ -82,7 +83,18 @@ function ResultContent() {
       <div className="result-blurb">
         <TypewriterText text={cocktail.personalityBlurb} speed={16}/>
       </div>
-      <div style={{ marginTop: 16, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      {cocktail.cocktailName === 'Glass of Water' && (
+        <div style={{
+          fontFamily: 'var(--font-pixel)',
+          fontSize: 6,
+          color: 'var(--blue)',
+          margin: '10px 0 4px',
+          letterSpacing: 1,
+        }}>
+          ✦ tab cleared ✦
+        </div>
+      )}
+      <div style={{ marginTop: 8, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <Link href="/quiz" className="start-btn" style={{ fontSize: 7 }}>↺ AGAIN</Link>
         <ShareButton cocktailName={cocktail.cocktailName} mbtiType={cocktail.mbtiType}/>
       </div>

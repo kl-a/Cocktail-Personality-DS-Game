@@ -8,6 +8,11 @@ export function addGlass(cocktailName: string): void {
   localStorage.setItem(KEY, JSON.stringify([...history, cocktailName]))
 }
 
+export function clearGlasses(): void {
+  if (typeof localStorage === 'undefined') return
+  localStorage.removeItem(KEY)
+}
+
 export function getGlasses(): string[] {
   if (typeof localStorage === 'undefined') return []
   try {
