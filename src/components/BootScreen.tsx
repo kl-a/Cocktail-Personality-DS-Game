@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 
 const STEPS = [
-  { text: 'TOUCH DETECTIVE DS',      ms: 100  },
+  { text: 'COCKTAIL BAR STORIES',     ms: 100  },
   { text: '──────────────────',      ms: 550  },
   { text: 'COCKTAIL UNIT  v2.4',     ms: 950  },
   { text: '',                         ms: 1300 },
