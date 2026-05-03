@@ -23,9 +23,10 @@ function ShareButton({ cocktailName, mbtiType }: { cocktailName: string; mbtiTyp
   const [copied, setCopied] = useState(false)
 
   function handleShare() {
-    const text = `✦ I got ${cocktailName} (${mbtiType}) on "A Night That Escalated Way Too Quickly" ✦\n\nTake the cocktail personality quiz!`
+    const url = 'https://kl-a.github.io/Cocktail-Personality-DS-Game/'
+    const text = `✦ I got ${cocktailName} (${mbtiType}) on "A Night That Escalated Way Too Quickly" ✦\n\nTake the cocktail personality quiz! ${url}`
     if (typeof navigator.share === 'function') {
-      navigator.share({ title: 'My Cocktail Personality', text }).catch(() => {})
+      navigator.share({ title: 'My Cocktail Personality', text, url }).catch(() => {})
     } else {
       navigator.clipboard.writeText(text).then(() => {
         setCopied(true)
