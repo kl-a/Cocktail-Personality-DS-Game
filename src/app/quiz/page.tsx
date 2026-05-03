@@ -42,7 +42,7 @@ export default function QuizPage() {
   const [shaking,  setShaking]  = useState(false)
   const [idle,     setIdle]     = useState(false)
   const [glasses,  setGlasses]  = useState<string[]>([])
-  const idleTimer = useRef<ReturnType<typeof setTimeout>>()
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const router = useRouter()
 
   // Read glass history once on mount (client-only)

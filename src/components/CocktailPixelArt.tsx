@@ -336,7 +336,7 @@ function CopperMug(s: Spec) {
 
 // ── Secret Easter egg glass ──────────────────────────────────────────────────
 
-function SecretGlass(_s: Spec) {
+function SecretGlass(s: Spec) {
   // A mysterious potion bottle with rainbow layers and a question mark
   return (
     <>
