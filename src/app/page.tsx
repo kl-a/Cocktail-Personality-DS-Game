@@ -4,7 +4,7 @@ import quizData from '@/assets/quiz.json'
 
 const topScreen = (
   <>
-    <div className="screen-top-header">✦ Touch Detective ✦</div>
+    <div className="screen-top-header">✦ Cocktail Bar Stories ✦</div>
     <div className="screen-top-title">A Night That<br />Escalated Way<br />Too Quickly</div>
     <div className="screen-top-subtitle">
       A cocktail personality quiz
