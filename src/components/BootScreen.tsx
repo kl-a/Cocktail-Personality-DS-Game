@@ -1,28 +1,32 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
-const STEPS = [
-  { text: 'COCKTAIL BAR STORIES',     ms: 100  },
-  { text: '──────────────────',      ms: 550  },
-  { text: 'COCKTAIL UNIT  v2.4',     ms: 950  },
-  { text: '',                         ms: 1300 },
-  { text: 'CHECKING VIBES........',  ms: 1600 },
-  { text: '▓▓▓▓▓▓▓░░░  70%',        ms: 2200 },
-  { text: '▓▓▓▓▓▓▓▓▓▓ 100%',        ms: 2700 },
-  { text: '',                         ms: 3000 },
-  { text: 'READY.',                  ms: 3100 },
-]
+import { useLang } from '@/context/LanguageContext'
+import { UI } from '@/lib/translations'
 
 export default function BootScreen() {
-  const [lines,   setLines]   = useState<string[]>([])
-  const [visible, setVisible] = useState(false)
-  const [fading,  setFading]  = useState(false)
+  const { lang }                    = useLang()
+  const t                           = UI[lang]
+  const [lines,   setLines]         = useState<string[]>([])
+  const [visible, setVisible]       = useState(false)
+  const [fading,  setFading]        = useState(false)
 
   useEffect(() => {
     if (typeof sessionStorage === 'undefined') return
     if (sessionStorage.getItem('td-booted')) return
     sessionStorage.setItem('td-booted', '1')
+
+    const STEPS = [
+      { text: t.bootTitle,    ms: 100  },
+      { text: '──────────────────', ms: 550  },
+      { text: t.bootUnit,     ms: 950  },
+      { text: '',             ms: 1300 },
+      { text: t.bootChecking, ms: 1600 },
+      { text: '▓▓▓▓▓▓▓░░░  70%', ms: 2200 },
+      { text: '▓▓▓▓▓▓▓▓▓▓ 100%', ms: 2700 },
+      { text: '',             ms: 3000 },
+      { text: t.bootReady,    ms: 3100 },
+    ]
 
     setVisible(true)
     STEPS.forEach(step => {
@@ -30,7 +34,7 @@ export default function BootScreen() {
     })
     setTimeout(() => setFading(true),   3600)
     setTimeout(() => setVisible(false), 4300)
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!visible) return null
 
@@ -43,9 +47,9 @@ export default function BootScreen() {
             className="boot-line"
             style={{
               color:
-                i === 0              ? 'var(--mint)'      :
-                line === 'READY.'    ? 'var(--yellow)'    :
-                line.startsWith('▓') ? 'var(--blue)'      :
+                i === 0                    ? 'var(--mint)'   :
+                line === t.bootReady       ? 'var(--yellow)' :
+                line.startsWith('▓')       ? 'var(--blue)'   :
                 'var(--text-dim)',
               fontSize: i === 0 ? 10 : undefined,
             }}

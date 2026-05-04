@@ -1,0 +1,128 @@
+[
+  {
+    "cocktailName": "Margarita",
+    "displayName": "玛格丽特",
+    "mbtiType": "ESTP",
+    "personalityBlurb": "你就是那种说走就走，却能让整晚变成传奇故事的人。就像玛格丽特，你充满活力、大胆直接，还带着一点迷人的混乱。你不需要别人许可——你本身就是那个时刻。和你在一起，人们不只是「出来玩」，他们是被卷进了你的轨道。人生太短，别慢慢喝，你就是来证明这一点的。",
+    "flavorProfile": { "sweet": 2, "sour": 4, "bitter": 1, "salty": 3, "umami": 1 }
+  },
+  {
+    "cocktailName": "Cosmopolitan",
+    "displayName": "大都会",
+    "mbtiType": "ESFP",
+    "personalityBlurb": "你不是走进房间，你是「降临」。就像大都会，你光彩照人，自带气场，魅力无需费力。你有一种天赋，能把平凡时刻变成值得铭记的瞬间，人们被你的温暖吸引，就像飞蛾扑火。闪耀之下，是一颗真诚的心，只想让所有人都玩得尽兴——而他们总是如愿以偿。",
+    "flavorProfile": { "sweet": 4, "sour": 3, "bitter": 1, "salty": 1, "umami": 2 }
+  },
+  {
+    "cocktailName": "Whiskey Sour",
+    "displayName": "威士忌酸酒",
+    "mbtiType": "ISTP",
+    "personalityBlurb": "你是混乱中的平静——也是那个悄悄把一切修好、而其他人还在慌乱的人。就像威士忌酸酒，你在顺滑与锋利之间拿捏得恰到好处。你不浪费言语，但一旦开口，大家都会听。你有一种低调的力量感，不用刻意就让人觉得神秘。不张扬，但有效。",
+    "flavorProfile": { "sweet": 2, "sour": 4, "bitter": 3, "salty": 1, "umami": 2 }
+  },
+  {
+    "cocktailName": "Pina Colada",
+    "displayName": "椰林飘香",
+    "mbtiType": "ISFP",
+    "personalityBlurb": "你本身就是一种氛围——老实说，大家都想在你脑子里住一天。就像椰林飘香，你柔软、梦幻，有点逃离现实，但以最好的方式。你感受深刻，注意到别人忽视的细节，默默把美带进这个世界。你不需要大声宣扬自己——但对的人会立刻「感觉到你」。",
+    "flavorProfile": { "sweet": 5, "sour": 1, "bitter": 1, "salty": 1, "umami": 3 }
+  },
+  {
+    "cocktailName": "Old Fashioned",
+    "displayName": "古典",
+    "mbtiType": "ESTJ",
+    "personalityBlurb": "你是大家在需要把事情搞定时第一个想到的人。就像古典，你不追风潮——你就是标准本身。直接、踏实、高效无比，你给混乱带来秩序。有人说你强势，但说真的？你只是没时间废话。奇怪的是……大家反而觉得这很安心。",
+    "flavorProfile": { "sweet": 2, "sour": 1, "bitter": 4, "salty": 1, "umami": 4 }
+  },
+  {
+    "cocktailName": "Mimosa",
+    "displayName": "含羞草",
+    "mbtiType": "ESFJ",
+    "personalityBlurb": "你是每个群聊的情感黏合剂。就像含羞草，你轻盈、振奋人心，莫名让一切变得没那么难熬。在别人开口说之前，你就已经察觉到他们状态不对，而且你真的在乎——发自内心地在乎。你不只是「出现」在别人身边，你是「全身心地出现」。说真的，世界因为有你这样的人才能转得更顺。",
+    "flavorProfile": { "sweet": 4, "sour": 2, "bitter": 1, "salty": 1, "umami": 3 }
+  },
+  {
+    "cocktailName": "Dry Martini",
+    "displayName": "干马天尼",
+    "mbtiType": "ISTJ",
+    "personalityBlurb": "你是人形精准仪器。就像干马天尼，你干净、从容、不喜欢把事情复杂化。你重视可靠、一致，以及把事情做「对」。有些人不会一下子就懂你——但没关系，你本来也不是为所有人准备的。但对那些懂你的人？你绝对靠得住。",
+    "flavorProfile": { "sweet": 1, "sour": 1, "bitter": 5, "salty": 2, "umami": 3 }
+  },
+  {
+    "cocktailName": "White Russian",
+    "displayName": "白俄罗斯",
+    "mbtiType": "ISFJ",
+    "personalityBlurb": "你是人形慰藉。就像白俄罗斯，你温暖、稳定，有一种不张扬的滋养感。你以别人甚至没意识到自己需要的方式照顾他们——而且你从不期待回报。你是那个安全港，是那把平静的声音，是那句「没关系，我在」。这样的人，少见。",
+    "flavorProfile": { "sweet": 4, "sour": 1, "bitter": 2, "salty": 1, "umami": 4 }
+  },
+  {
+    "cocktailName": "Moscow Mule",
+    "displayName": "莫斯科骡",
+    "mbtiType": "ENTP",
+    "personalityBlurb": "你是一个行走的「等等，听我说」时刻。就像莫斯科骡，你有劲道、有活力，还总能以好的方式出乎意料。你靠想法、辩论和突破边界活着，就是为了看看会发生什么。可预测？不存在。无聊？生理上不可能。你让大家时刻保持警觉——他们私下其实很享受。",
+    "flavorProfile": { "sweet": 2, "sour": 3, "bitter": 2, "salty": 1, "umami": 4 }
+  },
+  {
+    "cocktailName": "Espresso Martini",
+    "displayName": "浓缩咖啡马天尼",
+    "mbtiType": "ENFP",
+    "personalityBlurb": "你是纯粹的混乱善意能量——还附带咖啡因加持。就像浓缩咖啡马天尼，你热情、刺激，以最可爱的方式有点强烈。你在想法、热情和情绪之间跳跃，像是一项运动，偏偏还玩得转。和你聊完天的人，比之前更有活力了。",
+    "flavorProfile": { "sweet": 3, "sour": 1, "bitter": 4, "salty": 1, "umami": 3 }
+  },
+  {
+    "cocktailName": "Dark 'n' Stormy",
+    "displayName": "黑暗风暴",
+    "mbtiType": "INTP",
+    "personalityBlurb": "你活在想法的世界里——偶尔光顾一下现实。就像黑暗风暴，你层次丰富，有点难以捉摸，比人们初见时预想的深刻得多。你质疑一切，连接别人看不见的点，在脑海里悄悄建构整个宇宙。不是所有人都跟得上——但这某种程度上就是重点。",
+    "flavorProfile": { "sweet": 2, "sour": 3, "bitter": 3, "salty": 1, "umami": 3 }
+  },
+  {
+    "cocktailName": "Amaretto Sour",
+    "displayName": "杏仁酸酒",
+    "mbtiType": "INFP",
+    "personalityBlurb": "你感受万物之深——说真的，这是你的超能力。就像杏仁酸酒，表面柔软香甜，内里有一种安静的复杂性。你在别人视而不见的地方看见美，付出比你表现出来的更多关心，内心住着一整个情感宇宙。温柔，但不脆弱。",
+    "flavorProfile": { "sweet": 4, "sour": 3, "bitter": 2, "salty": 1, "umami": 2 }
+  },
+  {
+    "cocktailName": "Manhattan",
+    "displayName": "曼哈顿",
+    "mbtiType": "ENTJ",
+    "personalityBlurb": "你不只有目标——你有「目标的计划」。就像曼哈顿，你大胆、精致，气场不容忽视。你看清全局，然后以精准和自信向它迈进。人们一开始可能觉得你有点难以亲近……但真正需要有人带队的时候，他们也最信任你。",
+    "flavorProfile": { "sweet": 2, "sour": 1, "bitter": 4, "salty": 1, "umami": 4 }
+  },
+  {
+    "cocktailName": "Aperol Spritz",
+    "displayName": "阿佩罗气泡酒",
+    "mbtiType": "ENFJ",
+    "personalityBlurb": "你是社交形态的阳光。就像阿佩罗气泡酒，你明亮、振奋，毫不费力地把大家聚在一起。你天生有一种能力，让别人感到被看见、被倾听、被接纳——完全不需要刻意为之。人们不只是「喜欢」你，他们「感受到」你。有你在的场合，总是更好一点。",
+    "flavorProfile": { "sweet": 3, "sour": 3, "bitter": 3, "salty": 1, "umami": 2 }
+  },
+  {
+    "cocktailName": "Negroni",
+    "displayName": "尼格罗尼",
+    "mbtiType": "INTJ",
+    "personalityBlurb": "你不在乎被轻易读懂——这是刻意为之的。就像尼格罗尼，你复杂、大胆，绝对是需要时间品味的类型。你用系统、规律和长远结果思考，而其他人还困在当下。你不需要认可——你需要的是「精准」。而当有人终于懂了你的时候？那感觉对了。",
+    "flavorProfile": { "sweet": 1, "sour": 1, "bitter": 5, "salty": 2, "umami": 3 }
+  },
+  {
+    "cocktailName": "French 75",
+    "displayName": "法国75",
+    "mbtiType": "INFJ",
+    "personalityBlurb": "你静静地有力量——那种人们记得但说不清为什么的力量。就像法国75，你优雅、层次丰富，带着点出乎意料。你读得懂言外之意，感受得到表面之下，承载着大多数人触及不到的深度。柔软？是的。但也无比坚韧。",
+    "flavorProfile": { "sweet": 2, "sour": 3, "bitter": 2, "salty": 1, "umami": 3 }
+  },
+  {
+    "cocktailName": "Glass of Water",
+    "displayName": "一杯水",
+    "mbtiType": "H2O",
+    "personalityBlurb": "今晚，你做出了最勇敢、最正确、也最成熟的选择——那杯朴实无华的水。明天的头痛会比其他所有人小得多。未来的你已经感激不尽了。去喝点水吧，多喝几杯。",
+    "flavorProfile": { "sweet": 0, "sour": 0, "bitter": 0, "salty": 0, "umami": 0 }
+  },
+  {
+    "cocktailName": "The Bartender's Secret",
+    "displayName": "调酒师的秘密",
+    "mbtiType": "????",
+    "personalityBlurb": "你发现了隐藏菜单。你就是那种会读说明书、翻转卡带、输入秘籍只是想看看会发生什么的人。好奇、不羁，以最好的方式彻底混乱。连调酒师都不知道这杯里有什么——这就是重点。",
+    "flavorProfile": { "sweet": 3, "sour": 3, "bitter": 3, "salty": 3, "umami": 3 }
+  }
+]

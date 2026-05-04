@@ -4,38 +4,21 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import DSFrame    from '@/components/DSFrame'
 import GlassShelf from '@/components/GlassShelf'
-import quizData   from '@/assets/quiz.json'
+import quizDataEn from '@/assets/quiz.json'
+import quizDataZh from '@/assets/quiz.zh.json'
 import { calculateResult } from '@/lib/scoring'
 import { playAnswerTone, playConfirm } from '@/lib/sounds'
 import { getGlasses } from '@/lib/glassHistory'
+import { useLang } from '@/context/LanguageContext'
+import { UI } from '@/lib/translations'
 
-const DIMENSION_LABELS: Record<string, string> = {
-  movement:       'Energy',
-  speech:         'Expression',
-  expressiveness: 'Presence',
-  attitude:       'Vibe',
-}
-
-// ── AA question — shown when the tab reaches 5 glasses ───────────────────────
-
-const AA_QUESTION = {
-  id:        'aa_check',
-  text:      'Have you heard of Alcoholics Anonymous?',
-  dimension: 'attitude',
-  answers: [
-    { text: "I've been to a few meetings. For a friend.",  score: 2, water: true  },
-    { text: "No. Why would I? I'm completely fine.",       score: 5, water: false },
-    { text: "I sponsor three people there.",               score: 3, water: true  },
-    { text: "I FOUNDED the local chapter. And named it.",  score: 1, water: true  },
-    { text: "They meet Tuesdays. I avoid Tuesdays now.",   score: 4, water: false },
-  ],
-} as const
-
-type AAAnswer = typeof AA_QUESTION.answers[number]
-
-// ── Component ────────────────────────────────────────────────────────────────
+type AAAnswer = { text: string; score: number; water: boolean }
 
 export default function QuizPage() {
+  const { lang }                       = useLang()
+  const t                              = UI[lang]
+  const quizData                       = lang === 'zh' ? quizDataZh : quizDataEn
+
   const [current,  setCurrent]  = useState(0)
   const [answers,  setAnswers]  = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<number | null>(null)
@@ -52,8 +35,10 @@ export default function QuizPage() {
 
   // Build the questions array — prepend AA question when the tab is full
   const questions = useMemo(
-    () => glasses.length >= 5 ? [AA_QUESTION, ...quizData.questions] : quizData.questions,
-    [glasses.length], // eslint-disable-line react-hooks/exhaustive-deps
+    () => glasses.length >= 5
+      ? [{ ...t.aaQuestion, id: 'aa_check', dimension: 'attitude' }, ...quizData.questions]
+      : quizData.questions,
+    [glasses.length, lang], // eslint-disable-line react-hooks/exhaustive-deps
   )
   const TOTAL    = questions.length
   const question = questions[current]
@@ -109,13 +94,13 @@ export default function QuizPage() {
   const topScreen = (
     <>
       <div className="screen-top-header">
-        {DIMENSION_LABELS[question.dimension] ?? question.dimension}
+        {t.dimensionLabels[question.dimension] ?? question.dimension}
       </div>
 
       <div className="dimension-badge">{question.dimension}</div>
 
       <div className="screen-top-subtitle" style={{ color: 'var(--text-dim)', fontSize: 16 }}>
-        Question {current + 1} of {TOTAL}
+        {t.questionOf(current + 1, TOTAL)}
       </div>
 
       <div className="progress-dots">
@@ -135,7 +120,7 @@ export default function QuizPage() {
 
   const bottomScreen = (
     <div key={current} className="question-wipe">
-      <div className="question-number">Q{current + 1}</div>
+      <div className="question-number">{t.questionLabel(current + 1)}</div>
       <div className="question-text">{question.text}</div>
 
       <ul className={`answer-list${idle ? ' answer-list--idle' : ''}`}>

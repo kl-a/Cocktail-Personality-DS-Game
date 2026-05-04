@@ -1,0 +1,128 @@
+{
+  "quizMeta": {
+    "title": "一个越来越离谱的夜晚",
+    "description": "做出选择。无怨无悔。领取鸡尾酒。"
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "你收到一条临时消息：「我们要出去，没有计划，纯享受。你来吗？」",
+      "dimension": "movement",
+      "answers": [
+        { "text": "不了，我已经决定在家待着了", "score": 1 },
+        { "text": "也许……但计划是什么？", "score": 2 },
+        { "text": "可以说服我", "score": 3 },
+        { "text": "好啊，听起来不错", "score": 4 },
+        { "text": "我已经在穿鞋了，发消息的就是我", "score": 5 }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "司机走错了一个弯。",
+      "dimension": "speech",
+      "answers": [
+        { "text": "什么都不说", "score": 1 },
+        { "text": "……最终提了一句", "score": 2 },
+        { "text": "礼貌地指出来", "score": 3 },
+        { "text": "清楚地纠正他", "score": 4 },
+        { "text": "立刻接管导航", "score": 5 }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "调酒师问你想要什么。",
+      "dimension": "expressiveness",
+      "answers": [
+        { "text": "点一个稳妥的", "score": 1 },
+        { "text": "跟别人点一样的", "score": 2 },
+        { "text": "点自己喜欢的", "score": 3 },
+        { "text": "问调酒师推荐什么", "score": 4 },
+        { "text": "「随便来一杯」", "score": 5 }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "有人开始跳舞了。",
+      "dimension": "movement",
+      "answers": [
+        { "text": "只是观望", "score": 1 },
+        { "text": "跟着点头", "score": 2 },
+        { "text": "在边缘小幅扭动", "score": 3 },
+        { "text": "全力跳舞，完全入状态", "score": 4 },
+        { "text": "主角模式，舞池是你的主场！", "score": 5 }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "一个陌生人开始跟你说话。",
+      "dimension": "speech",
+      "answers": [
+        { "text": "尽快逃离", "score": 1 },
+        { "text": "简短礼貌地回应，希望他们离开", "score": 2 },
+        { "text": "聊一会儿，保持友好", "score": 3 },
+        { "text": "认真交流，看看能聊出什么", "score": 4 },
+        { "text": "主导对话，你才是让人害怕的陌生人", "score": 5 }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "有人提议换个地方。",
+      "dimension": "attitude",
+      "answers": [
+        { "text": "不了，我要回去喂我的电子宠物了", "score": 1 },
+        { "text": "有点迟疑，因为时间不早了", "score": 2 },
+        { "text": "看去哪里再说", "score": 3 },
+        { "text": "好啊，多陪朋友一会儿", "score": 4 },
+        { "text": "来者不拒！*顺手带走一瓶酒*", "score": 5 }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "深夜觅食大混乱。",
+      "dimension": "attitude",
+      "answers": [
+        { "text": "耐心等大家决定", "score": 1 },
+        { "text": "慢慢来，要听听每个人的意见", "score": 2 },
+        { "text": "正常点单，去老地方麦当劳", "score": 3 },
+        { "text": "快速决策，看旁边哪家还开着", "score": 4 },
+        { "text": "替所有人点单，我们得马上走", "score": 5 }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "「哎，好久不见，你最近怎么样啊？」",
+      "dimension": "speech",
+      "answers": [
+        { "text": "转移话题，反问对方", "score": 1 },
+        { "text": "敷衍一下，「就那样，老样子」", "score": 2 },
+        { "text": "说点真实的，但不深入", "score": 3 },
+        { "text": "直接说真实情况", "score": 4 },
+        { "text": "来一段深刻的人生哲学演讲", "score": 5 }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "「我们去别的地方……」",
+      "dimension": "movement",
+      "answers": [
+        { "text": "不行", "score": 1 },
+        { "text": "起疑心", "score": 2 },
+        { "text": "问清楚再说", "score": 3 },
+        { "text": "好的", "score": 4 },
+        { "text": "最好的故事要来了", "score": 5 }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "准备回家了。",
+      "dimension": "expressiveness",
+      "answers": [
+        { "text": "默默消化", "score": 1 },
+        { "text": "安静地满足", "score": 2 },
+        { "text": "轻松地回顾", "score": 3 },
+        { "text": "还在聊", "score": 4 },
+        { "text": "已经在计划下次了", "score": 5 }
+      ]
+    }
+  ]
+}
