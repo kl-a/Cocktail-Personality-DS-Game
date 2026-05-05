@@ -51,7 +51,7 @@
         { "text": "Head bop along", "score": 2 },
         { "text": "Shuffle on and dance on the edge", "score": 3 },
         { "text": "Full dancing mode, you're vibing", "score": 4 },
-        { "text": "Main character mode, the dace floor is yours now!", "score": 5 }
+        { "text": "Main character mode, the dance floor is yours now!", "score": 5 }
       ]
     },
     {
@@ -84,9 +84,9 @@
       "dimension": "movement",
       "answers": [
         { "text": "Wait patiently for the gang to decide", "score": 1 },
-        { "text": "Slow decision, wanting to get everyones input", "score": 2 },
+        { "text": "Slow decision, wanting to get everyone's input", "score": 2 },
         { "text": "Normal ordering - go to the ol' favourites, Maccas", "score": 3 },
-        { "text": "Quick decision - whats open next door", "score": 4 },
+        { "text": "Quick decision - what's open next door", "score": 4 },
         { "text": "Order for everyone, we need to keep moving ASAP", "score": 5 }
       ]
     },
